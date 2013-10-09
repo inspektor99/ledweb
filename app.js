@@ -20,8 +20,8 @@ if (!emulating) {
 	//init
 	for (i = 0; i < 75; i+=3) {
 		buffer[i] = 0;
-		buffer[i+1] = 0;
-		buffer[i+2] = 255;
+		buffer[i+1] = 255;
+		buffer[i+2] = 0;
 	}
 	ledstripe.sendRgbBuf(buffer);
 }
