@@ -10,22 +10,6 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
-var emulating = false;
-if (!emulating) {
-	var ledstripe = require('ledstripe');
-
-	ledstripe.connect(25, 'WS2801', '/dev/spidev0.0');
-	var buffer = new Buffer(3*25);
-	var i = 0;
-	//init
-	for (i = 0; i < 75; i+=3) {
-		buffer[i] = 0;
-		buffer[i+1] = 0;
-		buffer[i+2] = 0;
-	}
-	ledstripe.sendRgbBuf(buffer);
-}
-
 var app = express();
 
 // all environments
@@ -54,7 +38,28 @@ var server = http.createServer(app).listen(app.get('port'), function() {
 
 ledstrip.setServer(server);
 
-app.put('/setLedStrip', function(req, res) {
-	ledstrip.changeAll(req.body.color);
-	res.send({success: true});
-});
+var emulating = false;
+if (!emulating) {
+	var ledstripe = require('ledstripe');
+
+	ledstripe.connect(25, 'WS2801', '/dev/spidev0.0');
+	var buffer = new Buffer(3 * 25);
+	var i = 0;
+
+	var setColor = function(color) {
+		for (i = 0; i < 75; i += 3) {
+			buffer[i] = color.r;
+			buffer[i + 1] = color.g;
+			buffer[i + 2] = color.b;
+		}
+		ledstripe.sendRgbBuf(buffer);
+	};
+
+	app.put('/setLedStrip', function(req, res) {
+		ledstrip.changeAll(req.body.color);
+		setColor(req.body.color);
+		res.send({
+			success: true
+		});
+	});
+}
