@@ -56,7 +56,7 @@ if (!emulating) {
 	};
 
 	app.put('/setLedStrip', function(req, res) {
-		ledstrip.changeAll(req.body.color);
+		//ledstrip.changeAll(req.body.color);
 		setColor(req.body.color);
 		res.send({
 			success: true
