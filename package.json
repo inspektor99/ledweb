@@ -1,13 +1,26 @@
 {
-  "name": "application-name",
+  "name": "ledweb",
   "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
+  "description": "controller for led strips",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inspektor99/ledweb.git"
+  },
+  "author": "Nick Mileosn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inspektor99/ledweb/issues"
   },
   "dependencies": {
     "express": "3.4.0",
     "jade": "*",
     "stylus": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-less": "~0.8.2",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }
