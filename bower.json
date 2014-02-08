@@ -1,0 +1,22 @@
+{
+  "name": "ledweb",
+  "version": "0.0.1",
+  "homepage": "https://github.com/inspektor99/ledweb",
+  "description": "controller for led strips",
+  "main": "app.js",
+  "authors": [
+    "Nick Mileson"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.1.0"
+  }
+}

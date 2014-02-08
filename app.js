@@ -14,14 +14,11 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
@@ -38,9 +35,9 @@ var server = http.createServer(app).listen(app.get('port'), function() {
 
 ledstrip.setServer(server);
 
-var emulating = false;
+var emulating = true;
 if (!emulating) {
-	var ledstripe = require('ledstripe');
+	var ledstripe = require('./ledstrip');
 
 	ledstripe.connect(25, 'WS2801', '/dev/spidev0.0');
 	var buffer = new Buffer(3 * 25);
