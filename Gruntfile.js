@@ -84,11 +84,11 @@ module.exports = function(grunt) {
                     from: '{{#js}}',
                     to: function(matchedWord) {
                         i = 0;
-                        len = jSrcOrdered.length;
+                        len = jsSrcOrdered.length;
                         var src = '';
 
                         for (i = 0; i < len; i++) {
-                            src += '<script src="/' + srcPath + '/' + jsOrdered[i] + '"></script>\n';
+                            src += '<script src="/' + srcPath + '/' + jsOrdered[i] + '"></script>\n\t\t';
                         }
                         return src;
                     }

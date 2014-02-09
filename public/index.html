@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	    <!-- Meta, title, CSS, favicons, etc. -->
+	    <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Nick Mileson">
+
+		<title>
+		    LED Web
+		</title>
+
+		<link href="/public/dist/css/ledweb-0.0.1.min.css" type="text/css" rel="stylesheet"/>
+
+	</head>
+	<body>
+		<div class="jumbotron">
+			<h1>Welcome to LED Web!</h1>
+			<p>Let's control some leds</p>	
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<button id="test" class="btn btn-primary">test</button>
+					<button id="reset" class="btn btn-default">reset</button>
+				</div>
+			</div>
+		</div>
+		<script src="/vendor/jquery/jquery.min.js"></script>
+		<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/public/src/ledcontroller.js"></script>
+		<script src="/public/src/ledem.js"></script>
+		<script src="/public/src/main.js"></script>
+		
+	</body>
+</html>
