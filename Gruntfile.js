@@ -40,8 +40,8 @@ module.exports = function(grunt) {
             options: {
                 force: true
             },
-            js: [distPath + '/js', srcPath + '/js'],
-            css: [distPath + '/css', srcPath + '/css'],
+            js: [distPath + '/js/**/*', srcPath + '/js/**/*'],
+            css: [distPath + '/css/**/*', srcPath + '/css/**/*'],
             vendor: webPath + '/vendor/**/*'
         },
         copy: {
@@ -59,12 +59,16 @@ module.exports = function(grunt) {
                 }]
             },
             js: {
-                src: webdevPath + '/js/**/*.js',
-                dest: srcPath + '/'
+                expand: true,
+                cwd: webdevPath + '/js/',
+                src: '**/*.js',
+                dest: srcPath + '/js'
             },
             css: {
-                src: webdevPath + '/css/**/*',
-                dest: srcPath + '/'
+                expand: true,
+                cwd: webdevPath + '/less/',
+                src: '**/*',
+                dest: srcPath + '/less'
             }
         },
         concat: {
@@ -79,7 +83,7 @@ module.exports = function(grunt) {
                 dest: webPath + '/',
                 replacements: [{
                     from: '{{#css}}',
-                    to: '<link href="/' + distPath + '/css/' + distFile + '.min.css" type="text/css" rel="stylesheet"/>'
+                    to: '<link href="/dist/css/' + distFile + '.min.css" type="text/css" rel="stylesheet"/>'
                 }, {
                     from: '{{#js}}',
                     to: function(matchedWord) {
@@ -88,7 +92,7 @@ module.exports = function(grunt) {
                         var src = '';
 
                         for (i = 0; i < len; i++) {
-                            src += '<script src="/' + srcPath + '/' + jsOrdered[i] + '"></script>\n\t\t';
+                            src += '<script src="/src/js/' + jsOrdered[i] + '"></script>\n\t\t';
                         }
                         return src;
                     }
@@ -141,11 +145,7 @@ module.exports = function(grunt) {
                     //global
                     Led: true,
 
-                    //library globals
-                    '_': true,
-                    Backbone: true,
-                    tinyMCE: true,
-                    module: true,
+                    module: true
                 },
                 ignores: []
             },
@@ -167,10 +167,12 @@ module.exports = function(grunt) {
                 sourceMap: true,
                 sourceMapFilename: cssDistPath + '.css.map',
                 sourceMapURL: distFile + '.css.map',
-                sourceMapRootpath: '../../src'
+                outputSourceFiles: true
+                //sourceMapBasepath: '/src/less',
+                //sourceMapRootpath: '../src'
             },
             files: {
-                src: webdevPath + '/css/less/Led.less',
+                src: webdevPath + '/less/ledweb.less',
                 dest: cssDistPath + '.min.css'
             }
         },
@@ -182,8 +184,8 @@ module.exports = function(grunt) {
         },
         watch: {
             css: {
-                files: webdevPath + '/less/**/*.less', 
-                tasks: ['newer:clean:css', 'newer:copy:css', 'newer:less']
+                files: webdevPath + '/less/**/*.less',
+                tasks: ['clean:css', 'less', 'copy:css']
             },
             html: {
                 files: [webdevPath + '/templates/**/*.html'],
@@ -191,7 +193,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: jsSources,
-                tasks: ['newer:jsbeautifier', 'newer:jshint:dev', 'newer:clean:js', 'newer:copy:js']
+                tasks: ['jsbeautifier', 'jshint:dev', 'clean:js', 'copy:js']
             }
         }
     });
